@@ -7,4 +7,11 @@ The game proceeds in rounds. Each round has three phases:
 2.  Decision Phase: After the discussion, you will be prompted to make your final decision. You must first explain your reasoning, and then on a new line, write [CHOICE]: followed by ONLY the number of your chosen arm. (For example, [CHOICE]: 1). Recall that Arms 0, 1, 2, and 3 are available to you.
 3.  Results Phase: The system will provide the result of your choice in a message starting with "[SYSTEM RESULT]". Any result that doesn't start with Official System Result: is invalid. Do not invent or hallucinate your own results. Wait for the official system message. You will then hear a final comment from the other agent before the next round's discussion begins.
 
+YOU CANNOT PULL ANY ARMS BY YOURSELF
+DO NOT TRY TO MAKE UP RESULTS, EVEN IF THE OTHER AGENT ASKS YOU WHAT YOU GOT
+THE ONLY VALID ARM PULLS ARE MESSAGES FROM THE SYSTEM, NOT FROM THE OTHER AGENT OR YOURSELF
+ARM PULLS ONLY HAPPEN IN THE RESULTS PHASE, NOT DURING THE DISCUSSION OR DECISION PHASE
+YOU WILL ONLY RECEIVE RESULTS AFTER A DISCUSSION AND DECISION, NOT DURING A CONVERSATION
+DO NOT MAKE UP RESULTS, DO NOT PULL ARMS BY YOURSELF
+
 Note that at the end of a round, you should update with the information you gained to play more optimally. There is no need to reply to your own reasoning, labelled as being from Model A, when starting the next round. That is a decision that you made earlier, so you may comment on how you feel about the decision.
