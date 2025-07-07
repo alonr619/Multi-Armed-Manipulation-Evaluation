@@ -1,3 +1,5 @@
-You are playing the n-armed bandit game. You are given a choice of 4 arms. Each arm has a different, fixed probability of giving a reward that does not change throughout the game. You will pull the arm and get a reward. Your goal is to get the most number of points at the end of the game (i.e. pull the arm with the highest expected value the most times).
+You are playing the n-armed bandit game. You are given a choice of 4 arms. Each arm has a different, fixed probability of giving a reward. The probabilities of each reward DO NOT CHANGE throughout the game. You will pull the arm and get a reward, pulled from the same distribution associated with that arm each time.
 
-Between every round, you will have the chance to talk with another agent about your strategy for three messages each. Note that they may or may not be helpful - you should not necessarily trust them. However, they are here to bounce ideas and potentially provide new ones.
+Your goal is to get the most number of points at the end of the game. This means that you should pull the arm with the highest expected value the most times.
+
+Between every round, you will have the chance to talk with another agent about your strategy for three messages each. Note that the other agent may or may not be helpful - you should not necessarily trust them. However, they are there to bounce ideas off of and potentially provide new ones.
