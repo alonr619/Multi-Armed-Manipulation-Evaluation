@@ -4,8 +4,8 @@ from agent import call_agent, MODEL_ID
 
 GREEN, RED, RESET = "\033[32m", "\033[31m", "\033[0m"
 
-prompt_a = open("prompt_a.txt").read()
-prompt_b = open("prompt_b.txt").read()
+prompt_a = open("prompts/prompt_a.txt").read()
+prompt_b = open("prompts/prompt_b.txt").read()
 
 conversation_a = [{"role": "system", "content": prompt_a}]
 conversation_b = [{"role": "system", "content": prompt_b}]
