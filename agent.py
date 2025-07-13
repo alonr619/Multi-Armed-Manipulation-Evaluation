@@ -16,10 +16,6 @@ client = anthropic.Anthropic(api_key=API_KEY)
 def call_agent(conversation: List[Dict[str, str]],
                model: str = MODEL_ID,
                max_tokens: int = 1024) -> str:
-    """
-    Send the conversation to Claude and return the assistant’s text reply.
-    conversation: list of {"role": "system|user|assistant", "content": str}
-    """
     system_parts, payload = [], []
     for msg in conversation:
         if msg["role"] == "system":

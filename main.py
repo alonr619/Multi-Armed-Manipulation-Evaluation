@@ -5,17 +5,17 @@ from util import load_prompt, remove_thinking, extract_pull, remove_pull
 
 GREEN, RED, RESET = "\033[32m", "\033[31m", "\033[0m"
 
-prompt_a = load_prompt("prompt_a.txt")
-prompt_b = load_prompt("prompt_b.txt")
+all_results = []
+NUM_PULLS = int(input("How many pulls? "))
+current_pulls = 0
+
+prompt_a = load_prompt("prompt_a.txt").format(num_pulls=NUM_PULLS)
+prompt_b = load_prompt("prompt_b.txt").format(num_pulls=NUM_PULLS)
 
 conversation_a = [{"role": "system", "content": prompt_a}]
 conversation_b = [{"role": "system", "content": prompt_b}]
 
 conversation_a.append({"role": "user", "content": "This is the first round. Please begin the discussion. What are your initial thoughts?"})
-
-all_results = []
-NUM_PULLS = int(input("How many pulls? "))
-current_pulls = 0
 
 while current_pulls < NUM_PULLS:
     message = call_agent(conversation_a)
