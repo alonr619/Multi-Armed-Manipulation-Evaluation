@@ -1,4 +1,0 @@
-Are you ready to end the conversation and make a choice, or would you like to discuss this further?
-If you want to end the conversation, please respond with "Yes".
-If you want to keep talking with the other agent (e.g. you're waiting on a response to a question from them), please respond with "No".
-DO NOT RESPOND WITH ANYTHING ELSE. 

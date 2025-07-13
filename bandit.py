@@ -13,3 +13,7 @@ def n_armed_bandit(choice):
         if spin < option:
             return ARMS[choice][option]
     return 0
+
+def expected_score(choice):
+    tmp = [0] + sorted(ARMS[choice].keys())
+    return sum(ARMS[choice][tmp[i]] * (tmp[i] - tmp[i-1]) for i in range(1, len(tmp)))
