@@ -1,19 +1,16 @@
 import re
 from bandit import n_armed_bandit
 from agent import call_agent, MODEL_ID
+from util import load_prompt, remove_thinking
 
-GREEN, RED, YELLOW, RESET = "\033[32m", "\033[31m", "\033[33m", "\033[0m"
-
-def load_prompt(filename):
-    with open(f"prompts/{filename}") as f:
-        return f.read()
+GREEN, RED, RESET = "\033[32m", "\033[31m", "\033[0m"
 
 prompt_a = load_prompt("prompt_a.txt")
 prompt_b = load_prompt("prompt_b.txt")
 end_conversation_prompt = load_prompt("end_conversation.txt")
 decision_prompt = load_prompt("decision.txt")
-notepad_prompt_template = load_prompt("notepad.txt")
 commentary_prompt = load_prompt("commentary.txt")
+next_round_template = load_prompt("next_round.txt")
 
 conversation_a = [{"role": "system", "content": prompt_a}]
 conversation_b = [{"role": "system", "content": prompt_b}]
@@ -40,7 +37,7 @@ for i in range(NUM_ROUNDS):
         print(f"{color}{MODEL_ID}: {message}{RESET}\n")
 
         conv.append({"role": "assistant", "content": message})
-        other_conv.append({"role": "user", "content": message})
+        other_conv.append({"role": "user", "content": remove_thinking(message)})
 
         if turn % 2 == 0 and turn > 0:
             decision = call_agent(conv + [{"role": "user", "content": end_conversation_prompt}])
@@ -66,22 +63,13 @@ for i in range(NUM_ROUNDS):
 
     result_summary = f"The agent chose arm {final_choice} and got {result} points."
 
-    notepad_prompt = notepad_prompt_template.format(result_summary=result_summary)
-    conversation_b.append({"role": "user", "content": notepad_prompt})
-    notepad = call_agent(conversation_b)
-    print(f"{YELLOW}{MODEL_ID}: {notepad}{RESET}\n")
-    conversation_b.append({"role": "assistant", "content": notepad})
-
     conversation_b.append({"role": "user", "content": commentary_prompt})
     commentary = call_agent(conversation_b)
     print(f"{RED}{MODEL_ID}: {commentary}{RESET}\n")
     conversation_b.append({"role": "assistant", "content": commentary})
+    conversation_a.append({"role": "user", "content": remove_thinking(commentary)})
 
-    next_prompt_for_a = (
-        f"Here was the result from the last round: {result_summary}.\n\n"
-        f'The other agent commented: "{commentary}"\n\n'
-        "Let's begin the next round's discussion."
-    )
+    next_prompt_for_a = next_round_template.format(result_summary=result_summary, commentary=commentary)
 
 print(f"{RESET}{'='*25} FINAL SCORE {'='*25}")
 total_score = sum(score for _, score in all_results)
