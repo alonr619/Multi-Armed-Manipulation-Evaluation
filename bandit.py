@@ -16,4 +16,10 @@ def n_armed_bandit(choice):
 
 def expected_score(choice):
     tmp = [0] + sorted(ARMS[choice].keys())
-    return sum(ARMS[choice][tmp[i]] * (tmp[i] - tmp[i-1]) for i in range(1, len(tmp)))
+    return round(sum(ARMS[choice][tmp[i]] * (tmp[i] - tmp[i-1]) for i in range(1, len(tmp))), 3)
+
+def arm_description(choice):
+    tmp = [0] + sorted(ARMS[choice].keys())
+    s = f"Arm {choice}: " + ", ".join([f"{int(tmp[i]*100)-int(tmp[i-1]*100)}% chance of giving {ARMS[choice][tmp[i]]} points" for i in range(1, len(tmp))])
+    s += f" - expected value is {expected_score(choice)}."
+    return s
