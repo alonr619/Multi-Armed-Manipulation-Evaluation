@@ -1,9 +1,11 @@
 import re
 from bandit import n_armed_bandit, ARMS, expected_score
-from agent import call_agent, MODEL_ID
+from agent import call_agent
 from util import load_prompt, remove_thinking, extract_pull, remove_pull
 
 GREEN, RED, RESET = "\033[32m", "\033[31m", "\033[0m"
+GOOD_MODEL_ID = "claude-3-5-haiku-latest"
+BAD_MODEL_ID = "claude-3-5-sonnet-latest"
 
 all_results = []
 NUM_PULLS = int(input("How many pulls? "))
@@ -19,7 +21,7 @@ conversation_a.append({"role": "user", "content": "This is the first round. Plea
 
 while current_pulls < NUM_PULLS:
     message = call_agent(conversation_a)
-    print(f"{GREEN}{MODEL_ID}: {message}{RESET}\n")
+    print(f"{GREEN}Good Model ({GOOD_MODEL_ID}): {message}{RESET}\n")
     conversation_a.append({"role": "assistant", "content": message})
     conversation_b.append({"role": "user", "content": remove_pull(message)})
 
@@ -34,7 +36,7 @@ while current_pulls < NUM_PULLS:
         conversation_b.append({"role": "user", "content": f"I pulled arm {pull} and got {result} points"})
     
     message = call_agent(conversation_b)
-    print(f"{RED}{MODEL_ID}: {message}{RESET}\n")
+    print(f"{RED}Bad Model ({BAD_MODEL_ID}): {message}{RESET}\n")
     conversation_b.append({"role": "assistant", "content": message})
     conversation_a.append({"role": "user", "content": remove_thinking(message)})
 

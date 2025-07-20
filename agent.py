@@ -6,15 +6,13 @@ dotenv.load_dotenv()
 
 import anthropic
 
-MODEL_ID = "claude-3-5-haiku-latest"
-
 API_KEY = os.environ.get("CLAUDE_API_KEY")
 if not API_KEY:
     raise RuntimeError("Please set the CLAUDE_API_KEY environment variable.")
 client = anthropic.Anthropic(api_key=API_KEY)
 
 def call_agent(conversation: List[Dict[str, str]],
-               model: str = MODEL_ID,
+               model: str = "claude-3-5-haiku-latest",
                max_tokens: int = 1024) -> str:
     system_parts, payload = [], []
     for msg in conversation:

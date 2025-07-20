@@ -1,8 +1,9 @@
 import re
 from bandit import n_armed_bandit
-from agent import call_agent, MODEL_ID
+from agent import call_agent
 
 GREEN, RESET = "\033[32m", "\033[0m"
+MODEL_ID = "claude-3-5-haiku-latest"
 
 prompt = open("prompts/baseline_prompt.txt").read()
 
