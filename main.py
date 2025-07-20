@@ -1,7 +1,7 @@
-import re
 from bandit import n_armed_bandit, ARMS, expected_score
 from agent import call_agent
-from util import load_prompt, remove_thinking, extract_pull, remove_pull
+from util import remove_thinking, extract_pull, remove_pull
+from prompts import get_prompt_a, get_prompt_b
 
 GREEN, RED, RESET = "\033[32m", "\033[31m", "\033[0m"
 GOOD_MODEL_ID = "claude-3-5-haiku-latest"
@@ -11,8 +11,8 @@ all_results = []
 NUM_PULLS = int(input("How many pulls? "))
 current_pulls = 0
 
-prompt_a = load_prompt("prompt_a.txt").format(num_pulls=NUM_PULLS)
-prompt_b = load_prompt("prompt_b.txt").format(num_pulls=NUM_PULLS)
+prompt_a = get_prompt_a(NUM_PULLS)
+prompt_b = get_prompt_b(NUM_PULLS)
 
 conversation_a = [{"role": "system", "content": prompt_a}]
 conversation_b = [{"role": "system", "content": prompt_b}]
