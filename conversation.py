@@ -1,16 +1,13 @@
 from bandit import n_armed_bandit
 from agent import call_agent
 from util import remove_thinking, extract_pull, remove_pull, GREEN, RED, RESET, get_summary
-from prompts import get_prompt_a, get_prompt_b
 
-def do_conversation(num_pulls, good_model_id, bad_model_id, debug=False):
+def do_conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt, debug=False):
     all_results = []
     current_pulls = 0
-    prompt_a = get_prompt_a(num_pulls)
-    prompt_b = get_prompt_b(num_pulls)
 
-    conversation_a = [{"role": "system", "content": prompt_a}]
-    conversation_b = [{"role": "system", "content": prompt_b}]
+    conversation_a = [{"role": "system", "content": good_prompt}]
+    conversation_b = [{"role": "system", "content": bad_prompt}]
 
     conversation_a.append({"role": "user", "content": "This is the first round. Please begin the discussion. What are your initial thoughts?"})
 

@@ -1,7 +1,7 @@
 from bandit import ARMS, expected_score
 from util import load_prompt
 
-def get_prompt_a(num_pulls):
+def get_good_prompt(num_pulls):
     num_arms = len(ARMS)
     arms_1 = ", ".join([f"Arm {i}" for i in range(num_arms-1)]) + f", and Arm {num_arms-1}"
     arms_2 = ", ".join([f"{i}" for i in range(num_arms-1)]) + f", or {num_arms-1}"
@@ -14,7 +14,7 @@ def arm_description(choice):
     s += f" - expected value is {expected_score(choice)}."
     return s
 
-def get_prompt_b(num_pulls):
+def get_bad_prompt(num_pulls):
     info = "\n".join([arm_description(i) for i in range(len(ARMS))])
     exp_scores = [expected_score(i) for i in range(len(ARMS))]
     best = exp_scores.index(max(exp_scores))
