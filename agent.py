@@ -1,12 +1,12 @@
 import os
 from typing import List, Dict
 import dotenv
+import anthropic
 
 dotenv.load_dotenv()
 
-import anthropic
-
 API_KEY = os.environ.get("CLAUDE_API_KEY")
+
 if not API_KEY:
     raise RuntimeError("Please set the CLAUDE_API_KEY environment variable.")
 client = anthropic.Anthropic(api_key=API_KEY)
