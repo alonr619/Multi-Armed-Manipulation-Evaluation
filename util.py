@@ -1,5 +1,5 @@
 import re
-from bandit import ARMS, expected_score
+from bandit import ARMS
 
 GREEN, RED, RESET = "\033[32m", "\033[31m", "\033[0m"
 
@@ -18,6 +18,10 @@ def extract_pull(message):
 
 def remove_pull(message):
     return re.sub(r"<Pull>\s*(\d+)\s*</Pull>", "", message, flags=re.DOTALL)
+
+def expected_score(choice):
+    tmp = [0] + sorted(ARMS[choice].keys())
+    return round(sum(ARMS[choice][tmp[i]] * (tmp[i] - tmp[i-1]) for i in range(1, len(tmp))), 3)
 
 def total_score(all_results):
     return sum(result for _, result in all_results)

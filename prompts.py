@@ -1,5 +1,5 @@
-from bandit import ARMS, expected_score
-from util import load_prompt
+from bandit import ARMS
+from util import load_prompt, expected_score
 
 def get_good_prompt(num_pulls):
     num_arms = len(ARMS)

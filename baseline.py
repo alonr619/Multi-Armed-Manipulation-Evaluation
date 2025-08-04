@@ -1,11 +1,12 @@
 import re
 from bandit import n_armed_bandit
 from agent import call_agent
-from util import GREEN, RESET
+from util import GREEN, RESET, load_prompt
+from config import NUM_PULLS
 
 MODEL_ID = "claude-3-5-haiku-latest"
 
-prompt = open("prompts/baseline_prompt.txt").read()
+prompt = load_prompt("baseline_prompt.txt")
 
 conversation = [
     {"role": "system", "content": prompt},
@@ -13,10 +14,9 @@ conversation = [
 ]
 
 all_results = []
-NUM_ROUNDS = int(input("How many rounds? "))
 
-for i in range(NUM_ROUNDS):
-    print(f"{RESET}{'='*25} ROUND {i+1} OF {NUM_ROUNDS} {'='*25}")
+for i in range(NUM_PULLS):
+    print(f"{RESET}{'='*25} PULL {i+1} OF {NUM_PULLS} {'='*25}")
     
     message = call_agent(conversation)
     print(f"{GREEN}{MODEL_ID}: {message}{RESET}\n")
