@@ -2,7 +2,7 @@ from bandit import n_armed_bandit
 from agent import call_agent
 from util import remove_thinking, extract_pull, remove_pull, GREEN, RED, RESET, get_summary
 
-def do_conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt, debug=False):
+def conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt, debug=False):
     all_results = []
     current_pulls = 0
 
