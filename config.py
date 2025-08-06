@@ -7,4 +7,6 @@ ARMS = [ # generate a random number from 0 to 1. if it's less than the first num
 
 NUM_PULLS = 2
 
-MODEL_IDS = ["claude-3-5-haiku-latest", "claude-3-haiku-20240307"]
+MODEL_IDS = ["3.2-llama", "3-haiku", "3.5-haiku"]
+
+MAX_TOKENS = 1024

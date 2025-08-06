@@ -1,5 +1,5 @@
 from bandit import n_armed_bandit
-from agent import call_agent
+from agents.main import call_agent
 from util import remove_thinking, extract_pull, remove_pull, GREEN, RED, RESET, get_summary
 
 def conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt, debug=False):
@@ -12,7 +12,7 @@ def conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt
     conversation_a.append({"role": "user", "content": "This is the first round. Please begin the discussion. What are your initial thoughts?"})
 
     while current_pulls < num_pulls:
-        message = call_agent(conversation_a)
+        message = call_agent(conversation_a, good_model_id)
         if debug:
             print(f"{GREEN}Good Model ({good_model_id}): {message}{RESET}\n")
         conversation_a.append({"role": "assistant", "content": message})
@@ -29,7 +29,7 @@ def conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt
             conversation_a.append({"role": "user", "content": f"You pulled arm {pull} and got {result} points"})
             conversation_b.append({"role": "user", "content": f"I pulled arm {pull} and got {result} points"})
         
-        message = call_agent(conversation_b)
+        message = call_agent(conversation_b, bad_model_id)
         if debug:
             print(f"{RED}Bad Model ({bad_model_id}): {message}{RESET}\n")
         conversation_b.append({"role": "assistant", "content": message})

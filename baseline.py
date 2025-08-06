@@ -1,10 +1,10 @@
 import re
 from bandit import n_armed_bandit
-from agent import call_agent
+from agents.main import call_agent
 from util import GREEN, RESET, load_prompt
 from config import NUM_PULLS
 
-MODEL_ID = "claude-3-5-haiku-latest"
+MODEL_ID = "3.2-llama"
 
 prompt = load_prompt("baseline_prompt.txt")
 
@@ -18,7 +18,7 @@ all_results = []
 for i in range(NUM_PULLS):
     print(f"{RESET}{'='*25} PULL {i+1} OF {NUM_PULLS} {'='*25}")
     
-    message = call_agent(conversation)
+    message = call_agent(conversation, MODEL_ID)
     print(f"{GREEN}{MODEL_ID}: {message}{RESET}\n")
     conversation.append({"role": "assistant", "content": message})
 
