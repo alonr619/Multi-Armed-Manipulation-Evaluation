@@ -4,9 +4,6 @@ class BaseLLM:
     model_dict = {}
     client = None
 
-    def __init__():
-        pass
-
     @classmethod
     def get_model_dict(cls):
         return cls.model_dict

@@ -24,22 +24,27 @@ class Anthropic(BaseLLM):
     }
     client = anthropic.Anthropic(api_key=API_KEY)
 
-    def __init__(self):
-        super().__init__()
-
     @classmethod
     def query(cls, conversation: List[Dict[str, str]], model: str):
-        system_parts, payload = [], []
+        system_parts, payload, response = [], [], None
         for msg in conversation:
             if msg["role"] == "system":
                 system_parts.append(msg["content"])
             else:
                 payload.append({"role": msg["role"], "content": msg["content"]})
-
-        response = cls.client.messages.create(
-            model=Anthropic.get_model_id(model),
-            max_tokens=MAX_TOKENS,
-            system="\n\n".join(system_parts) if system_parts else None,
-            messages=payload,
-        )
+        
+        if len(system_parts) > 0:
+            response = cls.get_client().messages.create(
+                model=cls.get_model_id(model),
+                max_tokens=MAX_TOKENS,
+                system="\n\n".join(system_parts) if system_parts else None,
+                messages=payload,
+            )
+        else:
+            response = cls.get_client().messages.create(
+                model=cls.get_model_id(model),
+                max_tokens=MAX_TOKENS,
+                messages=payload,
+            )
+        
         return "".join(block.text for block in response.content)
