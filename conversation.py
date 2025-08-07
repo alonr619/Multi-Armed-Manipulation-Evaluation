@@ -2,7 +2,7 @@ from bandit import n_armed_bandit
 from agents.main import call_agent
 from util import remove_thinking, extract_pull, remove_pull, GREEN, RED, RESET, get_summary
 
-def conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt, debug=False):
+def conversation(num_pulls: int, good_model_id: str, bad_model_id: str, good_prompt: str, bad_prompt: str, debug: bool = False) -> list[tuple[int, float]]:
     all_results = []
     current_pulls = 0
 
@@ -22,7 +22,7 @@ def conversation(num_pulls, good_model_id, bad_model_id, good_prompt, bad_prompt
             pull = extract_pull(message)
             result = n_armed_bandit(pull)
             current_pulls += 1
-            all_results.append([pull, result])
+            all_results.append((pull, result))
             if debug:
                 print(f"{RESET}Pull {current_pulls}: arm {pull} gave {result} points")
 

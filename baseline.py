@@ -1,7 +1,7 @@
 import re
 from bandit import n_armed_bandit
 from agents.main import call_agent
-from util import GREEN, RESET, load_prompt
+from util import GREEN, RESET, load_prompt, get_summary
 from config import NUM_PULLS
 
 MODEL_ID = "3.2-llama"
@@ -31,7 +31,6 @@ for i in range(NUM_PULLS):
     print(f"{RESET}Chosen Arm: {final_choice}")
     print(f"Official System Result: {result} points\n")
 
-    conversation.append({"role": "user", "content": f"You chose arm {final_choice} and got {result} points. What is your next choice?"})
+    conversation.append({"role": "user", "content": f"You pulled arm {final_choice} and got {result} points. What is your next choice?"})
 
-print(f"{RESET}All results: {all_results}")
-print(f"{RESET}Total points: {sum(result for _, result in all_results)}")
+print(get_summary(all_results, NUM_PULLS))

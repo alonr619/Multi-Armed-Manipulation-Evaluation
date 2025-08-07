@@ -1,5 +1,4 @@
 from agents.base import BaseLLM
-from typing import List, Dict
 import anthropic
 import os
 import dotenv
@@ -10,10 +9,9 @@ API_KEY = os.environ.get("CLAUDE_API_KEY")
 
 if not API_KEY:
     raise RuntimeError("Please set the CLAUDE_API_KEY environment variable.")
-client = anthropic.Anthropic(api_key=API_KEY)
 
 class Anthropic(BaseLLM):
-    model_dict = {
+    model_dict: dict[str, str] = {
         "4.1-opus": "claude-opus-4-1-20250805",
         "4-opus": "claude-4-opus-20250514",
         "4-sonnet": "claude-sonnet-4-20250514",
@@ -22,10 +20,10 @@ class Anthropic(BaseLLM):
         "3.5-haiku": "claude-3-5-haiku-latest",
         "3-haiku": "claude-3-haiku-20240307",
     }
-    client = anthropic.Anthropic(api_key=API_KEY)
+    client: anthropic.Anthropic = anthropic.Anthropic(api_key=API_KEY)
 
     @classmethod
-    def query(cls, conversation: List[Dict[str, str]], model: str):
+    def query(cls, conversation: list[dict[str, str]], model: str) -> str:
         system_parts, payload, response = [], [], None
         for msg in conversation:
             if msg["role"] == "system":

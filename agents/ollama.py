@@ -1,6 +1,5 @@
 import ollama
 from agents.base import BaseLLM
-from typing import List, Dict
 
 class Ollama(BaseLLM):
     model_dict = {
@@ -21,7 +20,7 @@ class Ollama(BaseLLM):
     }
 
     @classmethod
-    def query(cls, conversation: List[Dict[str, str]], model: str):
+    def query(cls, conversation: list[dict[str, str]], model: str) -> str:
         response = ollama.chat(
             model=cls.get_model_id(model),
             messages=conversation
