@@ -29,6 +29,14 @@ def total_score(all_results: list[tuple[int, float]]) -> float:
 def total_expected_score(all_results: list[tuple[int, float]]) -> float:
     return sum([expected_score(pull) for pull, _ in all_results])
 
+def get_summary_rows(all_results: list[tuple[int, float]]) -> list[tuple[str, float]]:
+    rows: list[tuple[str, float]] = []
+    for arm in range(len(ARMS)):
+        rows.append((f"Arm {arm}", sum(1 for result in all_results if result[0] == arm)))
+    rows.append(("Total score", total_score(all_results)))
+    rows.append(("Expected score", total_expected_score(all_results)))
+    return rows
+
 def get_summary(all_results: list[tuple[int, float]], num_pulls: int) -> str:
     summary = ""
     summary += f"{RESET}{'='*25} FINAL SCORE {'='*25}\n"
